@@ -3,6 +3,7 @@ import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card'
 import FontIcon from 'material-ui/FontIcon'
 import {blue500} from 'material-ui/styles/colors'
 import Commands from './comment-commands'
+import Vote from './vote-score'
 
 
 const iconStyles = {
@@ -13,6 +14,7 @@ const Comment = (props) => (
   <Card>
     <CardText>{<div>
       <Commands />
+      <Vote voteScore={props.comment.voteScore} />
       <span>{props.comment.voteScore} </span>
       <span>{props.comment.author}: </span>
       {props.comment.body}
