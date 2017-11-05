@@ -3,9 +3,8 @@ import IconMenu from 'material-ui/IconMenu'
 import MenuItem from 'material-ui/MenuItem'
 import IconButton from 'material-ui/IconButton'
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
-import FlatButton from 'material-ui/FlatButton'
 import FontIcon from 'material-ui/FontIcon'
-import {blue500} from 'material-ui/styles/colors';
+import {blue500} from 'material-ui/styles/colors'
 
 const iconStyles = {
   marginRight: 24,

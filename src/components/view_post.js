@@ -1,11 +1,6 @@
 import React from 'react'
-import {blue500, cyan100} from 'material-ui/styles/colors';
 import Post from './post'
 import Comment from './comment'
-
-const iconStyles = {
-  marginRight: 24,
-}
 
 const defaultData = {
   "8xf0y6ziyjabvozdd253nd": {
@@ -67,7 +62,7 @@ class ViewPost extends React.Component {
     return (
       <div>
         <div>
-          <Post key={this.state.post.id} color={cyan100} post={this.state.post} />
+          <Post key={this.state.post.id} post={this.state.post} />
         </div>
         {this.state.comments.map((comment) => {
           return <div key={comment.id}><Comment comment={comment} /></div>

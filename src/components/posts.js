@@ -1,12 +1,8 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import {
   Table,
   TableBody,
-  TableHeader,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn,
+  TableHeader
 } from 'material-ui/Table'
 import InlinePost from './inline-post'
 import InlinePostHeader from './inline-post-header'
