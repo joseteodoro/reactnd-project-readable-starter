@@ -15,7 +15,6 @@ const Comment = (props) => (
     <CardText>{<div>
       <Commands />
       <Vote voteScore={props.comment.voteScore} />
-      <span>{props.comment.voteScore} </span>
       <span>{props.comment.author}: </span>
       {props.comment.body}
     </div>}</CardText>
