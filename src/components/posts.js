@@ -4,9 +4,14 @@ import {
   TableBody,
   TableHeader
 } from 'material-ui/Table'
+import FloatingActionButton from 'material-ui/FloatingActionButton'
+import ContentAdd from 'material-ui/svg-icons/content/add'
 import InlinePost from './inline-post'
 import InlinePostHeader from './inline-post-header'
 
+const style = {
+  margin: 24
+}
 
 const defaultData = [{
     id: '8xf0y6ziyjabvozdd253nd',
@@ -31,16 +36,21 @@ const defaultData = [{
   }]
 
 const Posts = (props) => (
-  <Table>
-    <TableHeader>
-      <InlinePostHeader />
-    </TableHeader>
-    <TableBody>
-      {defaultData.map((post) => {
-        return <InlinePost post={post} />
-      })}
-    </TableBody>
-  </Table>
+  <div>
+    <Table>
+      <TableHeader>
+        <InlinePostHeader />
+      </TableHeader>
+      <TableBody>
+        {defaultData.map((post) => {
+          return <InlinePost post={post} />
+        })}
+      </TableBody>
+    </Table>
+    <FloatingActionButton style={style}>
+      <ContentAdd />
+    </FloatingActionButton>
+  </div>
 )
 
 export default Posts

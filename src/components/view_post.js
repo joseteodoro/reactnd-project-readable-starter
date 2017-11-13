@@ -1,6 +1,7 @@
 import React from 'react'
 import Post from './post'
 import Comment from './comment'
+import Commands from './post-commands'
 
 const defaultData = {
   "8xf0y6ziyjabvozdd253nd": {
@@ -64,9 +65,14 @@ class ViewPost extends React.Component {
         <div>
           <Post key={this.state.post.id} post={this.state.post} />
         </div>
+        <div>
         {this.state.comments.map((comment) => {
           return <div key={comment.id}><Comment comment={comment} /></div>
         })}
+        </div>
+        <div>
+          <Commands />
+        </div>
       </div>)
   }
 }
