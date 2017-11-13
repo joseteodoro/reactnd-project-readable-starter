@@ -8,8 +8,8 @@ const iconStyles = {
 
 const Thumb = (props) => (
     (props.voteScore >= 0?
-      <FontIcon key={props.key} className="material-icons" style={iconStyles} color={blue500} >thumb_up</FontIcon> :
-      <FontIcon key={props.key} className="material-icons" style={iconStyles} color={red500} >thumb_down</FontIcon>)
+      <FontIcon key={props.key} className='material-icons' style={iconStyles} color={blue500} >thumb_up</FontIcon>
+      :<FontIcon key={props.key} className='material-icons' style={iconStyles} color={red500} >thumb_down</FontIcon>)
 )
 
 export default Thumb

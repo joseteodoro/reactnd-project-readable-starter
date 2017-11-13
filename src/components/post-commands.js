@@ -26,7 +26,7 @@ const Commands = (props) => (
       <ContentAdd />
     </FloatingActionButton>
     <FloatingActionButton style={style}>
-        <ContentDelete />
+      <ContentDelete />
     </FloatingActionButton>
   </div>
 )
