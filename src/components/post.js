@@ -1,11 +1,14 @@
 import React from 'react'
-import {Card, CardHeader, CardText} from 'material-ui/Card'
+import {Card, CardText} from 'material-ui/Card'
+import ReadableAppBar from './app-bar'
 
 const Post = (props) => (
-  <Card color={props.color}>
-    <CardHeader title={props.post.title} />
-    <CardText>{props.post.body}</CardText>
-  </Card>
+  <div>
+    <ReadableAppBar title={props.post.title} />
+    <Card>
+      <CardText>{props.post.body}</CardText>
+    </Card>
+  </div>
 )
 
 export default Post

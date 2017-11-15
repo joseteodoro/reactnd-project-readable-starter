@@ -3,8 +3,8 @@ import {Card, CardText} from 'material-ui/Card'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentEdit from 'material-ui/svg-icons/image/edit'
 import ContentDelete from 'material-ui/svg-icons/action/delete'
-import VoteDown from 'material-ui/svg-icons/action/thumb-down'
-import VoteUp from 'material-ui/svg-icons/action/thumb-up'
+// import VoteDown from 'material-ui/svg-icons/action/thumb-down'
+// import VoteUp from 'material-ui/svg-icons/action/thumb-up'
 import Vote from './vote-score'
 
 const style = {
@@ -22,17 +22,18 @@ const Comment = (props) => (
           <ContentDelete />
         </FloatingActionButton>
       </span>
-      <FloatingActionButton mini secondary style={style} >
-        <VoteDown />
-      </FloatingActionButton>
       <Vote voteScore={props.comment.voteScore} />
-      <FloatingActionButton mini secondary style={style} >
-        <VoteUp />
-      </FloatingActionButton>
       <span>{props.comment.author}: </span>
       {props.comment.body}
     </div>}</CardText>
   </Card>
 )
+
+// <FloatingActionButton mini secondary style={style} >
+//   <VoteDown />
+// </FloatingActionButton>
+// <FloatingActionButton mini secondary style={style} >
+//   <VoteUp />
+// </FloatingActionButton>
 
 export default Comment
