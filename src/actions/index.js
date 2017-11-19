@@ -18,15 +18,17 @@ export function addPost ({ title, body, author, category }) {
   const timestamp = moment().valueOf()
   return {
     type: ADD_POST,
-    id,
-    timestamp,
-    title,
-    body,
-    author,
-    category,
-    voteScore: 0,
-    deleted: false,
-    commentCount: 0
+    post: {
+      id,
+      timestamp,
+      title,
+      body,
+      author,
+      category,
+      voteScore: 0,
+      deleted: false,
+      commentCount: 0
+    }
   }
 }
 
@@ -35,9 +37,11 @@ export const UPDATE_POST = 'UPDATE_POST'
 export function updatePost ({ id, title, body }) {
   return {
     type: UPDATE_POST,
-    id,
-    title,
-    body
+    post: {
+      id,
+      title,
+      body
+    }
   }
 }
 
@@ -51,6 +55,30 @@ export function removePost ({id}) {
   }
 }
 
+export const POST_VOTE = 'POST_VOTE'
+
+export function postVoteUp ({target, id}) {
+  return {
+    type: POST_VOTE,
+    post: {
+      id,
+      vote: 'upVote',
+      change: 1
+    }
+  }
+}
+
+export function postVoteDown ({target, id}) {
+  return {
+    type: POST_VOTE,
+    post: {
+      id,
+      vote: 'downVote',
+      change: -1
+    }
+  }
+}
+
 export const ADD_COMMENT = 'ADD_COMMENT'
 
 export function addComment ({parentId, body, author}) {
@@ -58,14 +86,16 @@ export function addComment ({parentId, body, author}) {
   const timestamp = moment().valueOf()
   return {
     type: ADD_COMMENT,
-    id,
-    parentId,
-    timestamp,
-    body,
-    author,
-    voteScore: 0,
-    deleted: false,
-    parentDeleted: false
+    comment: {
+      id,
+      parentId,
+      timestamp,
+      body,
+      author,
+      voteScore: 0,
+      deleted: false,
+      parentDeleted: false
+    }
   }
 }
 
@@ -75,9 +105,11 @@ export function updateComment ({ id, body }) {
   const timestamp = moment().valueOf()
   return {
     type: UPDATE_COMMENT,
-    id,
-    timestamp,
-    body
+    comment: {
+      id,
+      timestamp,
+      body
+    }
   }
 }
 
@@ -90,24 +122,26 @@ export function removeComment ({id}) {
   }
 }
 
-export const VOTE_UP = 'VOTE_UP'
+export const COMMENT_VOTE = 'COMMENT_VOTE'
 
-// target is the endpoint to reach: POST || COMMENT
-export function voteUp ({target, id}) {
+export function commentVoteUp ({target, id}) {
   return {
-    type: VOTE_UP,
-    target,
-    id
+    type: COMMENT_VOTE,
+    comment: {
+      id,
+      vote: 'upVote',
+      change: 1
+    }
   }
 }
 
-export const VOTE_DOWN = 'VOTE_DOWN'
-
-// target is the endpoint to reach: POST || COMMENT
-export function voteDown ({target, id}) {
+export function commentVoteDown ({target, id}) {
   return {
-    type: VOTE_DOWN,
-    target,
-    id
+    type: COMMENT_VOTE,
+    comment: {
+      id,
+      vote: 'downVote',
+      change: -1
+    }
   }
 }

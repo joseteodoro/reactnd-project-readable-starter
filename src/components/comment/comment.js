@@ -5,7 +5,7 @@ import ContentEdit from 'material-ui/svg-icons/image/edit'
 import ContentDelete from 'material-ui/svg-icons/action/delete'
 // import VoteDown from 'material-ui/svg-icons/action/thumb-down'
 // import VoteUp from 'material-ui/svg-icons/action/thumb-up'
-import Vote from './vote-score'
+import Vote from '../vote/vote-score'
 
 const style = {
   margin: 5
