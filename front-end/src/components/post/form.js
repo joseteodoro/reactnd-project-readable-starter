@@ -58,6 +58,7 @@ export default class PostForm extends Component {
     const {title, body, author, category} = this.state
     return (
       <div>
+        move the button to outside component
         <RaisedButton label='Add Post' onClick={this.handleOpen} />
         <Dialog
           title='New Post'
