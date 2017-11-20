@@ -10,13 +10,18 @@ export default class PostForm extends Component {
 
   constructor (props) {
     super(props)
-    this.state = {
+    this.defaultState = {
       open: false,
-      post: props.post || {}
+      title: '',
+      body: '',
+      author: '',
+      category: null
     }
+    this.state = props.body || this.defaultState
     this.handleOpen = this.handleOpen.bind(this)
     this.handleClose = this.handleClose.bind(this)
     this.changeCategory = this.changeCategory.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
   handleOpen () {
@@ -24,12 +29,18 @@ export default class PostForm extends Component {
   };
 
   handleClose () {
-    console.log(require('util').inspect(this.state.post, { depth: null }))
-    this.setState({open: false})
+    console.log(require('util').inspect(this.state, { depth: null }))
+    this.setState(this.defaultState)
   }
 
   changeCategory (event, index, value) {
-    this.setState({post: {category: value}})
+    this.setState({category: value})
+  }
+
+  handleChange (event, index, value) {
+    const id = event.target.id
+    const updated = {[id]: event.target.value}
+    this.setState(updated)
   }
 
   render () {
@@ -44,7 +55,7 @@ export default class PostForm extends Component {
         onClick={this.handleClose}
       />
     ]
-
+    const {title, body, author, category} = this.state
     return (
       <div>
         <RaisedButton label='Add Post' onClick={this.handleOpen} />
@@ -55,14 +66,14 @@ export default class PostForm extends Component {
           open={this.state.open}
           onRequestClose={this.handleClose}
         >
-          <TextField hintText='Post title' floatingLabelText='Post title' value={this.state.post.title} /><br />
-          <SelectField hintText='Post category' floatingLabelText='Post category' value={this.state.post.category} >
-            <MenuItem value={'react'} primaryText='React' />
-            <MenuItem value={'redux'} primaryText='Redux' />
-            <MenuItem value={'udacity'} primaryText='Udacity' />
+          <TextField id='title' hintText='Post title' onChange={this.handleChange} floatingLabelText='Post title' value={title} /><br />
+          <SelectField id='category' hintText='Post category' floatingLabelText='Post category' value={category} onChange={this.changeCategory} >
+            <MenuItem key='react' value='react' primaryText='React' />
+            <MenuItem key='redux' value='redux' primaryText='Redux' />
+            <MenuItem key='udacity' value='udacity' primaryText='Udacity' />
           </SelectField><br />
-          <TextField hintText='Your name' floatingLabelText='Post author' value={this.state.post.author} /><br />
-          <TextField hintText='Post Body' floatingLabelText='Post body' multiLine rows={5} value={this.state.post.body} /><br />
+          <TextField id='author' hintText='Your name' floatingLabelText='Post author' value={author} onChange={this.handleChange} /><br />
+          <TextField id='body' hintText='Post Body' floatingLabelText='Post body' multiLine rows={5} value={body} onChange={this.handleChange} /><br />
         </Dialog>
       </div>
     )
