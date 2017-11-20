@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import Dialog from 'material-ui/Dialog'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentAdd from 'material-ui/svg-icons/communication/chat'
+import ContentEdit from 'material-ui/svg-icons/image/edit'
 import TextField from 'material-ui/TextField'
 import FlatButton from 'material-ui/FlatButton'
 
@@ -20,6 +21,7 @@ export default class CommentForm extends Component {
       author: ''
     }
     this.state = props.comment || this.defaultState
+    this.state.open = false
     this.handleOpen = this.handleOpen.bind(this)
     this.handleClose = this.handleClose.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -44,6 +46,18 @@ export default class CommentForm extends Component {
     this.setState(updated)
   }
 
+  actionButton (id) {
+    if (id) {
+      return (<FloatingActionButton mini secondary style={style} onClick={this.handleOpen} >
+        <ContentEdit />
+      </FloatingActionButton>)
+    } else {
+      return (<FloatingActionButton style={style} onClick={this.handleOpen} >
+        <ContentAdd />
+      </FloatingActionButton>)
+    }
+  }
+
   render () {
     const actions = [
       <FlatButton
@@ -56,13 +70,10 @@ export default class CommentForm extends Component {
         onClick={this.handleClose}
       />
     ]
-    const {body, author} = this.state
-    move the button to outside component
+    const {body, author, id} = this.state
     return (
       <span>
-        <FloatingActionButton style={style} onClick={this.handleOpen} >
-          <ContentAdd />
-        </FloatingActionButton>
+        {this.actionButton(id)}
         <Dialog
           title='New Comment'
           actions={actions}
@@ -70,7 +81,7 @@ export default class CommentForm extends Component {
           open={this.state.open}
           onRequestClose={this.handleClose}
         >
-          <TextField id='author' hintText='Your name' floatingLabelText='Comment author' value={author} onChange={this.handleChange} /><br />
+          <TextField id='author' hintText='Your name' floatingLabelText='Comment author' value={author} onChange={this.handleChange} disabled={!!id} /><br />
           <TextField id='body' hintText='Comment body' floatingLabelText='Comment body' multiLine rows={5} value={body} onChange={this.handleChange} /><br />
         </Dialog>
       </span>

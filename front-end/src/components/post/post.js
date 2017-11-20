@@ -14,7 +14,7 @@ const Post = ({post, comments}) => (
     <Commands post={post} />
     <div>
       {comments.map((comment) => {
-        return <div key={comment.id}><Comment comment={comment} /></div>
+        return <div key={comment.id}><Comment comment={comment} post={post} /></div>
       })}
     </div>
   </div>

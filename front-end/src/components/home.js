@@ -5,24 +5,15 @@ import {
   TableHeader
 } from 'material-ui/Table'
 import { connect } from 'react-redux'
-import FloatingActionButton from 'material-ui/FloatingActionButton'
-import ContentAdd from 'material-ui/svg-icons/content/add'
 import InlinePost from './post/inline-post'
 import InlinePostHeader from './post/inline-post-header'
 import ReadableAppBar from './app-bar'
 import PostForm from './post/form'
 
-const style = {
-  margin: 24
-}
-
 // TODO move all post table content to inline-post
 const Home = ({posts}) => (
   <div>
     <ReadableAppBar title='All posts' />
-    <FloatingActionButton style={style}>
-      <ContentAdd />
-    </FloatingActionButton>
     <PostForm />
     <Table>
       <TableHeader>
