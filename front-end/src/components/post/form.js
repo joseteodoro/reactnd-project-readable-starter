@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import { connect } from 'react-redux'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import SelectField from 'material-ui/SelectField'
@@ -7,12 +8,13 @@ import TextField from 'material-ui/TextField'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentEdit from 'material-ui/svg-icons/image/edit'
 import ContentAdd from 'material-ui/svg-icons/content/add'
+import {addPost, updatePost} from './actions'
 
 const style = {
   margin: 24
 }
 
-export default class PostForm extends Component {
+class PostForm extends Component {
 
   constructor (props) {
     super(props)
@@ -36,7 +38,12 @@ export default class PostForm extends Component {
   };
 
   handleClose () {
-    console.log(require('util').inspect(this.state, { depth: null }))
+    const { newPost, editPost } = this.props
+    if (this.state.id) {
+      editPost(this.state)
+    } else {
+      newPost(this.state)
+    }
     this.setState(this.defaultState)
   }
 
@@ -96,3 +103,12 @@ export default class PostForm extends Component {
     )
   }
 }
+
+function mapDispatchToProps (dispatch) {
+  return {
+    newPost: (data) => dispatch(addPost(data)),
+    editPost: (data) => dispatch(updatePost(data))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(PostForm)
