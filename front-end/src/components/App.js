@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Switch, Route } from 'react-router-dom'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import PostList from './post/home'
+import PostList from './post/post-list'
 import Post from './post/post'
 
 class App extends Component {

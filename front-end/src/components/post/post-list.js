@@ -7,7 +7,7 @@ import {
 import { connect } from 'react-redux'
 import InlinePost from './inline-post'
 import InlinePostHeader from './inline-post-header'
-import ReadableAppBar from './app-bar'
+import ReadableAppBar from '../app-bar'
 import PostForm from './form'
 
 // TODO move all post table content to inline-post
@@ -28,7 +28,8 @@ const PostList = ({posts}) => (
   </div>
 )
 
-function mapStateToProps ({ items }) {
+function mapStateToProps ({ posts }) {
+  const { items } = posts
   return { posts: items.sort((left, right) => left.voteScore - right.voteScore) }
 }
 

@@ -4,13 +4,6 @@ import * as api from '../../client/API'
 
 export const POST_ADDED = 'POST_ADDED'
 
-export function postAdded (post) {
-  return {
-    type: POST_ADDED,
-    post
-  }
-}
-
 export function addPost ({ title, body, author, category }) {
   const id = randomstring.generate()
   const timestamp = moment().valueOf()
@@ -25,10 +18,37 @@ export function addPost ({ title, body, author, category }) {
     deleted: false,
     commentCount: 0
   }
-  return function (dispatch) {
-    api.addPost(post).then(res => dispatch(postAdded(post)))
+  return {
+    type: POST_ADDED,
+    post
   }
 }
+
+// export function postAdded (post) {
+//   return {
+//     type: POST_ADDED,
+//     post
+//   }
+// }
+//
+// export function addPost ({ title, body, author, category }) {
+//   const id = randomstring.generate()
+//   const timestamp = moment().valueOf()
+//   const post = {
+//     id,
+//     timestamp,
+//     title,
+//     body,
+//     author,
+//     category,
+//     voteScore: 0,
+//     deleted: false,
+//     commentCount: 0
+//   }
+//   return function (dispatch) {
+//     api.addPost(post).then(res => dispatch(postAdded(post)))
+//   }
+// }
 
 export const POST_UPDATED = 'POST_UPDATED'
 

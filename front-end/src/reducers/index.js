@@ -32,7 +32,7 @@ import {
 //   }
 // }
 
-function post (state = {items: []}, action) {
+function posts (state = {items: []}, action) {
   switch (action.type) {
     case POST_ADDED: {
       const items = state.items.concat(action.post)
@@ -55,8 +55,10 @@ function post (state = {items: []}, action) {
     }
 
     case POSTS_FETCHED: {
+      console.log(require('util').inspect(action, { depth: null }))
       const { posts } = action
-      return {...state, items: posts.filter(post => !post.deleted)}
+      const items = posts.filter((post) => !post.deleted)
+      return {...state, items}
     }
 
     default :
@@ -93,6 +95,6 @@ function post (state = {items: []}, action) {
 // }
 
 export default combineReducers({
-  post
+  posts
   // ,comment
 })
