@@ -1,80 +1,116 @@
 import randomstring from 'randomstring'
 import moment from 'moment'
+import * as api from '../../client/API'
 
-export const SORT_POSTS = 'SORT_POSTS'
+export const POST_ADDED = 'POST_ADDED'
 
-export function sortPosts ({ field, kind }) {
+export function postAdded (post) {
   return {
-    type: SORT_POSTS,
-    field,
-    kind
+    type: POST_ADDED,
+    post
   }
 }
-
-export const ADD_POST = 'ADD_POST'
 
 export function addPost ({ title, body, author, category }) {
   const id = randomstring.generate()
   const timestamp = moment().valueOf()
-  return {
-    type: ADD_POST,
-    post: {
-      id,
-      timestamp,
-      title,
-      body,
-      author,
-      category,
-      voteScore: 0,
-      deleted: false,
-      commentCount: 0
-    }
+  const post = {
+    id,
+    timestamp,
+    title,
+    body,
+    author,
+    category,
+    voteScore: 0,
+    deleted: false,
+    commentCount: 0
+  }
+  return function (dispatch) {
+    api.addPost(post).then(res => dispatch(postAdded(post)))
   }
 }
 
-export const UPDATE_POST = 'UPDATE_POST'
+export const POST_UPDATED = 'POST_UPDATED'
+
+export function postUpdated (post) {
+  return {
+    type: POST_UPDATED,
+    post
+  }
+}
 
 export function updatePost ({ id, title, body }) {
-  return {
-    type: UPDATE_POST,
-    post: {
-      id,
-      title,
-      body
-    }
+  const post = {
+    id,
+    title,
+    body
+  }
+  return function (dispatch) {
+    api.updatePost(post).then(post => dispatch(postUpdated(post)))
   }
 }
 
-export const REMOVE_POST = 'REMOVE_POST'
+export const POST_REMOVED = 'POST_REMOVED'
 
-// TODO remove all comments when calling remove post
-export function removePost ({id}) {
+export function postRemoved (id) {
   return {
-    type: REMOVE_POST,
+    type: POST_REMOVED,
     id
   }
 }
 
-export const POST_VOTE = 'POST_VOTE'
+export function removePost ({ id }) {
+  return function (dispatch) {
+    api.deletePost(id).then(res => dispatch(postRemoved(id)))
+  }
+}
+
+export const POST_VOTED_UP = 'POST_VOTED_UP'
+
+export function postVotedUp (post) {
+  return {
+    type: POST_VOTED_UP,
+    post
+  }
+}
 
 export function postVoteUp ({id}) {
+  return function (dispatch) {
+    api.votePost(id, 'upVote').then(post =>
+      dispatch(postVotedUp(post))
+    )
+  }
+}
+
+export const POST_VOTED_DOWN = 'POST_VOTED_DOWN'
+
+export function postVotedDown (post) {
   return {
-    type: POST_VOTE,
-    post: {
-      id,
-      vote: 'upVote',
-      change: 1
-    }
+    type: POST_VOTED_DOWN,
+    post
   }
 }
 
 export function postVoteDown ({id}) {
+  return function (dispatch) {
+    api.votePost(id, 'downVote').then(post => dispatch(postVotedDown(post))
+    )
+  }
+}
+
+export const POSTS_FETCHED = 'POSTS_FETCHED'
+
+export function postsFetched (posts) {
   return {
-    type: POST_VOTE,
-    post: {
-      id,
-      vote: 'downVote',
-      change: -1
-    }
+    type: POSTS_FETCHED,
+    posts
+  }
+}
+
+export function fetchPosts ({id}) {
+  return function (dispatch) {
+    api.getPosts().then(posts => {
+      dispatch(postsFetched(posts))
+    })
   }
 }

@@ -5,13 +5,13 @@ import {
   TableHeader
 } from 'material-ui/Table'
 import { connect } from 'react-redux'
-import InlinePost from './post/inline-post'
-import InlinePostHeader from './post/inline-post-header'
+import InlinePost from './inline-post'
+import InlinePostHeader from './inline-post-header'
 import ReadableAppBar from './app-bar'
-import PostForm from './post/form'
+import PostForm from './form'
 
 // TODO move all post table content to inline-post
-const Home = ({posts}) => (
+const PostList = ({posts}) => (
   <div>
     <ReadableAppBar title='All posts' />
     <PostForm />
@@ -28,15 +28,10 @@ const Home = ({posts}) => (
   </div>
 )
 
-function mapStateToProps ({ post }) {
-  const posts = Object.keys(post)
-    .map((id) => post[id])
-    .sort((left, right) => left.voteScore - right.voteScore)
-  return {
-    posts
-  }
+function mapStateToProps ({ items }) {
+  return { posts: items.sort((left, right) => left.voteScore - right.voteScore) }
 }
 
 export default connect(
   mapStateToProps
-)(Home)
+)(PostList)

@@ -38,11 +38,10 @@ class PostForm extends Component {
   };
 
   handleClose () {
-    const { newPost, editPost } = this.props
     if (this.state.id) {
-      editPost(this.state)
+      this.props.editPost(this.state)
     } else {
-      newPost(this.state)
+      this.props.newPost(this.state)
     }
     this.setState(this.defaultState)
   }
