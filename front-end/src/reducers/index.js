@@ -55,8 +55,8 @@ function posts (state = {items: []}, action) {
     }
 
     case POSTS_FETCHED: {
-      console.log(require('util').inspect(action, { depth: null }))
       const { posts } = action
+      console.log(require('util').inspect(posts, { depth: null }))
       const items = posts.filter((post) => !post.deleted)
       return {...state, items}
     }

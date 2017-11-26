@@ -24,31 +24,14 @@ export function addPost ({ title, body, author, category }) {
   }
 }
 
-// export function postAdded (post) {
-//   return {
-//     type: POST_ADDED,
-//     post
-//   }
-// }
-//
-// export function addPost ({ title, body, author, category }) {
-//   const id = randomstring.generate()
-//   const timestamp = moment().valueOf()
-//   const post = {
-//     id,
-//     timestamp,
-//     title,
-//     body,
-//     author,
-//     category,
-//     voteScore: 0,
-//     deleted: false,
-//     commentCount: 0
-//   }
-//   return function (dispatch) {
-//     api.addPost(post).then(res => dispatch(postAdded(post)))
-//   }
-// }
+export const POSTS_FETCHED = 'POSTS_FETCHED'
+
+export function fetchPosts () {
+  return {
+    type: POSTS_FETCHED,
+    posts: null
+  }
+}
 
 export const POST_UPDATED = 'POST_UPDATED'
 
@@ -115,22 +98,5 @@ export function postVoteDown ({id}) {
   return function (dispatch) {
     api.votePost(id, 'downVote').then(post => dispatch(postVotedDown(post))
     )
-  }
-}
-
-export const POSTS_FETCHED = 'POSTS_FETCHED'
-
-export function postsFetched (posts) {
-  return {
-    type: POSTS_FETCHED,
-    posts
-  }
-}
-
-export function fetchPosts ({id}) {
-  return function (dispatch) {
-    api.getPosts().then(posts => {
-      dispatch(postsFetched(posts))
-    })
   }
 }

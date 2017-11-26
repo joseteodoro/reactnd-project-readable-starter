@@ -1,6 +1,6 @@
 import * as api from '../client/API'
 import {
-  // POSTS_FETCHED,
+  POSTS_FETCHED,
   // POST_UPDATED,
   // POST_REMOVED,
   // POST_VOTED_UP,
@@ -38,8 +38,13 @@ export function posts (store) {
       // case POST_REMOVED: {
       // }
       //
-      // case POSTS_FETCHED: {
-      // }
+      case POSTS_FETCHED: {
+        api.getPosts().then(posts => {
+          action.posts = posts
+          return next(action)
+        })
+        break
+      }
 
       default :
         return next(action)
