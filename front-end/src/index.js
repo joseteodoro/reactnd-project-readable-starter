@@ -17,8 +17,6 @@ const store = createStore(
   )
 )
 
-// const store = createStore(reducer)
-
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>

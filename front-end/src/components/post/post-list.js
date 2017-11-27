@@ -47,7 +47,7 @@ class PostList extends React.Component {
 
 function mapStateToProps ({ posts }) {
   const { items } = posts
-  return { posts: items.sort((left, right) => left.voteScore - right.voteScore) }
+  return { posts: items.sort((left, right) => right.voteScore - left.voteScore) }
 }
 
 function mapDispatchToProps (dispatch) {

@@ -1,13 +1,17 @@
 import randomstring from 'randomstring'
 import moment from 'moment'
 
-export const ADD_COMMENT = 'ADD_COMMENT'
+export const COMMENT_UPDATED = 'COMMENT_UPDATED'
+export const COMMENT_REMOVED = 'COMMENT_REMOVED'
+export const COMMENT_VOTED_UP = 'COMMENT_VOTED_UP'
+export const COMMENT_VOTED_DOWN = 'COMMENT_VOTED_DOWN'
+export const COMMENT_ADDED = 'COMMENT_ADDED'
 
 export function addComment ({parentId, body, author}) {
   const id = randomstring.generate()
   const timestamp = moment().valueOf()
   return {
-    type: ADD_COMMENT,
+    type: COMMENT_ADDED,
     comment: {
       id,
       parentId,
@@ -21,12 +25,10 @@ export function addComment ({parentId, body, author}) {
   }
 }
 
-export const UPDATE_COMMENT = 'UPDATE_COMMENT'
-
 export function updateComment ({ id, body }) {
   const timestamp = moment().valueOf()
   return {
-    type: UPDATE_COMMENT,
+    type: COMMENT_UPDATED,
     comment: {
       id,
       timestamp,
@@ -35,35 +37,29 @@ export function updateComment ({ id, body }) {
   }
 }
 
-export const REMOVE_COMMENT = 'REMOVE_COMMENT'
-
 export function removeComment ({id}) {
   return {
-    type: REMOVE_COMMENT,
+    type: COMMENT_REMOVED,
     id
   }
 }
 
-export const COMMENT_VOTE = 'COMMENT_VOTE'
-
-export function commentVoteUp ({target, id}) {
+export function commentVoteUp (comment) {
   return {
-    type: COMMENT_VOTE,
+    type: COMMENT_VOTED_UP,
     comment: {
-      id,
-      vote: 'upVote',
-      change: 1
+      comment,
+      vote: 'upVote'
     }
   }
 }
 
-export function commentVoteDown ({target, id}) {
+export function commentVoteDown (comment) {
   return {
-    type: COMMENT_VOTE,
+    type: COMMENT_VOTED_DOWN,
     comment: {
-      id,
-      vote: 'downVote',
-      change: -1
+      comment,
+      vote: 'downVote'
     }
   }
 }

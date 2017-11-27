@@ -6,33 +6,18 @@ import {
   POST_REMOVED,
   POST_VOTED_UP,
   POST_VOTED_DOWN,
-  POSTS_FETCHED
+  POSTS_FETCHED,
+  POST_LOADED
 } from '../components/post/actions'
+import {
+  COMMENT_UPDATED,
+  COMMENT_REMOVED,
+  COMMENT_VOTED_UP,
+  COMMENT_VOTED_DOWN,
+  COMMENT_ADDED
+} from '../components/comment/actions'
 
-// const initialCommentState = {
-//   '894tuq4ut84ut8v4t8wun89g': {
-//     id: '894tuq4ut84ut8v4t8wun89g',
-//     parentId: '8xf0y6ziyjabvozdd253nd',
-//     timestamp: 1468166872634,
-//     body: 'Hi there! I am a COMMENT.',
-//     author: 'thingtwo',
-//     voteScore: 6,
-//     deleted: false,
-//     parentDeleted: false
-//   },
-//   '8tu4bsun805n8un48ve89': {
-//     id: '8tu4bsun805n8un48ve89',
-//     parentId: '8xf0y6ziyjabvozdd253nd',
-//     timestamp: 1469479767190,
-//     body: 'Comments. Are. Cool.',
-//     author: 'thingone',
-//     voteScore: -5,
-//     deleted: false,
-//     parentDeleted: false
-//   }
-// }
-
-function posts (state = {items: []}, action) {
+function posts (state = {items: [], comments: []}, action) {
   switch (action.type) {
     case POST_ADDED: {
       const items = state.items.concat(action.post)
@@ -42,10 +27,11 @@ function posts (state = {items: []}, action) {
     case POST_VOTED_UP:
     case POST_VOTED_DOWN:
     case POST_UPDATED: {
+      const { post } = action
       const items = state.items.map((item) => {
-        return (item.id === action.post.id ? action.post : item)
+        return (item.id === post.id ? post : item)
       })
-      return {...state, items}
+      return {...state, items, post}
     }
 
     case POST_REMOVED: {
@@ -56,9 +42,36 @@ function posts (state = {items: []}, action) {
 
     case POSTS_FETCHED: {
       const { posts } = action
-      console.log(require('util').inspect(posts, { depth: null }))
       const items = posts.filter((post) => !post.deleted)
       return {...state, items}
+    }
+
+    case POST_LOADED: {
+      const { post } = action
+      const comments = (action.comments && action.comments.filter((comment) => !comment.deleted)) || []
+      return {...state, post, comments}
+    }
+
+    case COMMENT_ADDED: {
+      const { comment } = action
+      const comments = state.comments.concat(comment)
+      return {...state, comments}
+    }
+
+    case COMMENT_UPDATED:
+    case COMMENT_VOTED_UP:
+    case COMMENT_VOTED_DOWN: {
+      const { comment } = action
+      const comments = state.comments.map((item) => {
+        return (item.id === comment.id ? comment : item)
+      })
+      return {...state, comments}
+    }
+
+    case COMMENT_REMOVED: {
+      const { id } = action
+      const comments = state.comments.filter((item) => (item.id === id))
+      return {...state, comments}
     }
 
     default :
@@ -66,35 +79,4 @@ function posts (state = {items: []}, action) {
   }
 }
 
-// function comment (state = initialCommentState, action) {
-//   const {comment} = action
-//   switch (action.type) {
-//     case ADD_COMMENT:
-//       return {
-//         ...state,
-//         [comment.id]: comment
-//       }
-//     case UPDATE_COMMENT:
-//       return {
-//         ...state,
-//         [comment.id]: comment
-//       }
-//     case REMOVE_COMMENT:
-//       return {
-//         ...state,
-//         [comment.id]: {deleted: true}
-//       }
-//     case COMMENT_VOTE:
-//       return {
-//         ...state,
-//         [comment.id]: {voteScore: state[comment.id].voteScore + comment.change}
-//       }
-//     default :
-//       return state
-//   }
-// }
-
-export default combineReducers({
-  posts
-  // ,comment
-})
+export default combineReducers({ posts })

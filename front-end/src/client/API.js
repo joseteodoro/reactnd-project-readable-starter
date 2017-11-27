@@ -27,6 +27,11 @@ export function getPosts () {
     .then(res => res.json())
 }
 
+export function getPostById (postId) {
+  return fetch(`${apiServerAddress}/posts/${postId}`, { headers })
+    .then(res => res.json())
+}
+
 export function addPost (post) {
   return fetch(`${apiServerAddress}/posts`, {
     method: 'POST',
@@ -36,11 +41,6 @@ export function addPost (post) {
     },
     body: JSON.stringify(post)
   }).then(res => res.json())
-}
-
-export function getPostDetails (postId) {
-  return fetch(`${apiServerAddress}/posts/${postId}`, { headers })
-    .then(res => res.json())
 }
 
 export function votePost (postId, vote) {
@@ -55,7 +55,7 @@ export function votePost (postId, vote) {
 }
 
 export function updatePost (post) {
-  fetch(`${apiServerAddress}/posts/${post.id}`, {
+  return fetch(`${apiServerAddress}/posts/${post.id}`, {
     method: 'PUT',
     headers: {
       ...headers,
@@ -76,7 +76,7 @@ export function deletePost (id) {
 }
 
 export function getCommentsByPost (id) {
-  fetch(`${apiServerAddress}/posts/${id}/comments`, { headers })
+  return fetch(`${apiServerAddress}/posts/${id}/comments`, { headers })
     .then(res => res.json())
 }
 
@@ -89,11 +89,6 @@ export function addComment (comment) {
     },
     body: JSON.stringify(comment)
   }).then(res => res.json())
-}
-
-export function getCommentDetails (id) {
-  return fetch(`${apiServerAddress}/comments/${id}`, { headers })
-    .then(res => res.json())
 }
 
 export function voteComment (commentId, vote) {

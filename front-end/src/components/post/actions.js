@@ -1,6 +1,16 @@
 import randomstring from 'randomstring'
 import moment from 'moment'
-import * as api from '../../client/API'
+
+export const POST_LOADED = 'POST_LOADED'
+
+export function loadPost (id) {
+  return {
+    type: POST_LOADED,
+    id,
+    post: null,
+    comments: []
+  }
+}
 
 export const POST_ADDED = 'POST_ADDED'
 
@@ -33,14 +43,16 @@ export function fetchPosts () {
   }
 }
 
-export const POST_UPDATED = 'POST_UPDATED'
+export const POST_REMOVED = 'POST_REMOVED'
 
-export function postUpdated (post) {
+export function removePost ({ id }) {
   return {
-    type: POST_UPDATED,
-    post
+    type: POST_REMOVED,
+    id
   }
 }
+
+export const POST_UPDATED = 'POST_UPDATED'
 
 export function updatePost ({ id, title, body }) {
   const post = {
@@ -48,55 +60,32 @@ export function updatePost ({ id, title, body }) {
     title,
     body
   }
-  return function (dispatch) {
-    api.updatePost(post).then(post => dispatch(postUpdated(post)))
-  }
-}
-
-export const POST_REMOVED = 'POST_REMOVED'
-
-export function postRemoved (id) {
   return {
-    type: POST_REMOVED,
-    id
-  }
-}
-
-export function removePost ({ id }) {
-  return function (dispatch) {
-    api.deletePost(id).then(res => dispatch(postRemoved(id)))
+    type: POST_UPDATED,
+    post
   }
 }
 
 export const POST_VOTED_UP = 'POST_VOTED_UP'
 
-export function postVotedUp (post) {
+export function postVoteUp (post) {
+  const voteScore = post.voteScore + 1
+  const updated = {...post, voteScore}
   return {
     type: POST_VOTED_UP,
-    post
-  }
-}
-
-export function postVoteUp ({id}) {
-  return function (dispatch) {
-    api.votePost(id, 'upVote').then(post =>
-      dispatch(postVotedUp(post))
-    )
+    vote: 'upVote',
+    updated
   }
 }
 
 export const POST_VOTED_DOWN = 'POST_VOTED_DOWN'
 
-export function postVotedDown (post) {
+export function postVoteDown (post) {
+  const voteScore = post.voteScore - 1
+  const updated = {...post, voteScore}
   return {
     type: POST_VOTED_DOWN,
-    post
-  }
-}
-
-export function postVoteDown ({id}) {
-  return function (dispatch) {
-    api.votePost(id, 'downVote').then(post => dispatch(postVotedDown(post))
-    )
+    vote: 'downVote',
+    updated
   }
 }
