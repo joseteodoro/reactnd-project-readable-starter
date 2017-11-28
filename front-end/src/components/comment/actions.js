@@ -37,7 +37,7 @@ export function updateComment ({ id, body }) {
   }
 }
 
-export function removeComment ({id}) {
+export function removeComment (id) {
   return {
     type: COMMENT_REMOVED,
     id
@@ -45,21 +45,21 @@ export function removeComment ({id}) {
 }
 
 export function commentVoteUp (comment) {
+  const voteScore = comment.voteScore + 1
+  const updated = {...comment, voteScore}
   return {
     type: COMMENT_VOTED_UP,
-    comment: {
-      comment,
-      vote: 'upVote'
-    }
+    comment: updated,
+    vote: 'upVote'
   }
 }
 
 export function commentVoteDown (comment) {
+  const voteScore = comment.voteScore - 1
+  const updated = {...comment, voteScore}
   return {
     type: COMMENT_VOTED_DOWN,
-    comment: {
-      comment,
-      vote: 'downVote'
-    }
+    comment: updated,
+    vote: 'downVote'
   }
 }

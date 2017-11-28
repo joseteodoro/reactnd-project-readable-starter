@@ -45,7 +45,7 @@ export function fetchPosts () {
 
 export const POST_REMOVED = 'POST_REMOVED'
 
-export function removePost ({ id }) {
+export function removePost (id) {
   return {
     type: POST_REMOVED,
     id
@@ -74,7 +74,7 @@ export function postVoteUp (post) {
   return {
     type: POST_VOTED_UP,
     vote: 'upVote',
-    updated
+    post: updated
   }
 }
 
@@ -86,6 +86,6 @@ export function postVoteDown (post) {
   return {
     type: POST_VOTED_DOWN,
     vote: 'downVote',
-    updated
+    post: updated
   }
 }

@@ -51,7 +51,9 @@ export function votePost (postId, vote) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({ option: vote })
-  }).then(res => res.json())
+  }).then(res => {
+    return res.json()
+  })
 }
 
 export function updatePost (post) {
@@ -92,6 +94,7 @@ export function addComment (comment) {
 }
 
 export function voteComment (commentId, vote) {
+  console.log(commentId, vote)
   return fetch(`${apiServerAddress}/comments/${commentId}`, {
     method: 'POST',
     headers: {

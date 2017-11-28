@@ -36,7 +36,7 @@ function posts (state = {items: [], comments: []}, action) {
 
     case POST_REMOVED: {
       const { id } = action
-      const items = state.items.filter((item) => (item.id === id))
+      const items = state.items.filter((item) => (item.id !== id))
       return {...state, items}
     }
 
@@ -70,7 +70,7 @@ function posts (state = {items: [], comments: []}, action) {
 
     case COMMENT_REMOVED: {
       const { id } = action
-      const comments = state.comments.filter((item) => (item.id === id))
+      const comments = state.comments.filter((item) => (item.id !== id))
       return {...state, comments}
     }
 

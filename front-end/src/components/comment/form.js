@@ -1,16 +1,18 @@
 import React, {Component} from 'react'
+import { connect } from 'react-redux'
 import Dialog from 'material-ui/Dialog'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentAdd from 'material-ui/svg-icons/communication/chat'
 import ContentEdit from 'material-ui/svg-icons/image/edit'
 import TextField from 'material-ui/TextField'
 import FlatButton from 'material-ui/FlatButton'
+import {addComment, updateComment} from './actions'
 
 const style = {
-  margin: 24
+  margin: 5
 }
 
-export default class CommentForm extends Component {
+class CommentForm extends Component {
 
   constructor (props) {
     super(props)
@@ -33,6 +35,11 @@ export default class CommentForm extends Component {
 
   handleClose () {
     console.log(require('util').inspect(this.state, { depth: null }))
+    if (this.state.id) {
+      this.props.update(this.state)
+    } else {
+      this.props.add(this.state)
+    }
     this.setState(this.defaultState)
   }
 
@@ -88,3 +95,12 @@ export default class CommentForm extends Component {
     )
   }
 }
+
+function mapDispatchToProps (dispatch) {
+  return {
+    add: data => dispatch(addComment(data)),
+    update: data => dispatch(updateComment(data))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(CommentForm)
