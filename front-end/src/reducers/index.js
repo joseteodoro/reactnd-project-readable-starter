@@ -16,9 +16,17 @@ import {
   COMMENT_VOTED_DOWN,
   COMMENT_ADDED
 } from '../components/comment/actions'
+import {
+  LOAD_CATEGORIES
+} from '../components/categories/actions'
 
 function posts (state = {items: [], comments: []}, action) {
   switch (action.type) {
+    case LOAD_CATEGORIES: {
+      const { categories } = action
+      return {...state, categories}
+    }
+
     case POST_ADDED: {
       const items = state.items.concat(action.post)
       return {...state, items}

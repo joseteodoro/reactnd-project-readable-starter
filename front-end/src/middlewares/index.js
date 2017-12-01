@@ -15,10 +15,21 @@ import {
   COMMENT_VOTED_DOWN,
   COMMENT_ADDED
 } from '../components/comment/actions'
+import {
+  LOAD_CATEGORIES
+} from '../components/categories/actions'
 
 export function posts (store) {
   return (next) => (action) => {
     switch (action.type) {
+      case LOAD_CATEGORIES: {
+        api.getCategories().then(result => {
+          action.categories = result.categories
+          return next(action)
+        })
+        break
+      }
+
       case POST_ADDED: {
         const {post} = action
         api.addPost(post).then(res => next(action))

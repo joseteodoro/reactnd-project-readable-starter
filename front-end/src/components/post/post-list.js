@@ -15,20 +15,20 @@ import {fetchPosts} from './actions'
 class PostList extends React.Component {
 
   componentWillMount () {
-    const { params } = this.props.match
+    // const { params } = this.props.match
 
-    if (params && params.category) {
-      this.props.getCategoryPosts(params.category)
-    } else {
+    // if (params && params.category && params.category) {
+    //   this.props.getCategoryPosts(params.category)
+    // } else {
       this.props.getPosts()
-    }
+    // }
   }
 
   render () {
     const { posts } = this.props
     return (
       <div>
-        <ReadableAppBar title='All posts' />
+        <ReadableAppBar title={`${this.props.match.params.category || 'All'} posts`} />
         <PostForm />
         <Table>
           <TableHeader>

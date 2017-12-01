@@ -11,7 +11,7 @@ class App extends Component {
         <link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet' />
         <MuiThemeProvider>
           <Switch>
-            <Route exact path='/' component={PostList} />
+            <Route exact path='/:category?' component={PostList} />
             <Route path='/post/:post_id' component={Post} />
           </Switch>
         </MuiThemeProvider>
