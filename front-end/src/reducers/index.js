@@ -8,7 +8,8 @@ import {
   POST_VOTED_DOWN,
   POSTS_FETCHED,
   POSTS_FETCHED_BY_CATEGORY,
-  POST_LOADED
+  POST_LOADED,
+  SORT_POST
 } from '../components/post/actions'
 import {
   COMMENT_UPDATED,
@@ -51,9 +52,22 @@ function posts (state = {items: [], comments: []}, action) {
 
     case POSTS_FETCHED_BY_CATEGORY:
     case POSTS_FETCHED: {
-      const { posts } = action
+      const { posts, sortedBy } = action
       const items = posts.filter((post) => !post.deleted)
-      return {...state, items}
+      if (sortedBy.order === 'asc') {
+        return {...state, sortedBy, items: items.sort((left, right) => left[sortedBy.field] - right[sortedBy.field])}
+      } else {
+        return {...state, sortedBy, items: items.sort((left, right) => right[sortedBy.field] - left[sortedBy.field])}
+      }
+    }
+
+    case SORT_POST: {
+      const { sortedBy } = action
+      if (sortedBy.order === 'asc') {
+        return {...state, sortedBy, items: state.items.sort((left, right) => left[sortedBy.field] - right[sortedBy.field])}
+      } else {
+        return {...state, sortedBy, items: state.items.sort((left, right) => right[sortedBy.field] - left[sortedBy.field])}
+      }
     }
 
     case POST_LOADED: {

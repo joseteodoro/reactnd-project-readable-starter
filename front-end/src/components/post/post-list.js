@@ -9,6 +9,7 @@ import InlinePost from './inline-post'
 import InlinePostHeader from './inline-post-header'
 import ReadableAppBar from '../app-bar'
 import PostForm from './form'
+import PostSorting from './post-sort'
 import {fetchPosts, fetchPostsByCategory} from './actions'
 
 class PostList extends React.Component {
@@ -26,15 +27,12 @@ class PostList extends React.Component {
     this.loadPostsToComponent()
   }
 
-  componentWillUpdate () {
-    this.loadPostsToComponent()
-  }
-
   render () {
     const { posts } = this.props
     return (
       <div>
-        <ReadableAppBar title={`${this.props.match.params.category || 'All'} posts`} />
+        <ReadableAppBar key='title-bar' title={`${this.props.match.params.category || 'All'} posts`} />
+        <PostSorting />
         <PostForm />
         <Table>
           <TableHeader>
@@ -52,8 +50,9 @@ class PostList extends React.Component {
 }
 
 function mapStateToProps ({ posts }) {
-  const { items } = posts
-  return { posts: items.sort((left, right) => right.voteScore - left.voteScore) }
+  const { items, sortedBy } = posts
+  console.log(`sorting by ${sortedBy}`)
+  return { sortedBy, posts: items.sort((left, right) => right[sortedBy] - left[sortedBy]) }
 }
 
 function mapDispatchToProps (dispatch) {

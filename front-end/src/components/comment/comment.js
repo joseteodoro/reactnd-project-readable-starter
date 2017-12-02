@@ -2,6 +2,7 @@ import Moment from 'moment'
 import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 import {Card, CardText, CardHeader, CardActions} from 'material-ui/Card'
 import RaisedButton from 'material-ui/RaisedButton'
 import Vote from '../vote/vote-score'
@@ -15,7 +16,7 @@ const style = {
 const Comment = (props) => (
   <Card>
     <CardHeader subtitle={
-      <span>Vote score: <Vote voteScore={props.comment.voteScore} /> {props.comment.author} commented at ({new Moment(props.comment.timestamp).format('dddd, MMMM Do YYYY, h:mm:ss a')}) </span>
+      <span>Vote score: <Vote voteScore={props.comment.voteScore} /> {props.comment.author} commented at ({new Moment(props.comment.timestamp).format('DD/MM/YYYY, h:mm:ss a')}) </span>
     } />
     <CardText>{<div>{props.comment.body}</div>}</CardText>
     <CardActions>
@@ -40,6 +41,10 @@ function mapDispatchToProps (dispatch) {
     up: data => dispatch(commentVoteUp(data)),
     down: data => dispatch(commentVoteDown(data))
   }
+}
+
+Comment.propTypes = {
+  comment: PropTypes.object.isRequired
 }
 
 export default connect(null, mapDispatchToProps)(withRouter(Comment))

@@ -1,6 +1,15 @@
 import randomstring from 'randomstring'
 import moment from 'moment'
 
+export const SORT_POST = 'SORT_POST'
+
+export function sortPosts (sortedBy) {
+  return {
+    type: SORT_POST,
+    sortedBy
+  }
+}
+
 export const POST_LOADED = 'POST_LOADED'
 
 export function loadPost (id) {
@@ -40,6 +49,7 @@ export function fetchPostsByCategory (category) {
   return {
     type: POSTS_FETCHED_BY_CATEGORY,
     category,
+    sortedBy: {field: 'voteScore', order: 'desc'},
     posts: null
   }
 }
@@ -49,6 +59,7 @@ export const POSTS_FETCHED = 'POSTS_FETCHED'
 export function fetchPosts () {
   return {
     type: POSTS_FETCHED,
+    sortedBy: {field: 'voteScore', order: 'desc'},
     posts: null
   }
 }

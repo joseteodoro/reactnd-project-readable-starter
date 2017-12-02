@@ -7,6 +7,7 @@ import MenuItem from 'material-ui/MenuItem'
 import IconButton from 'material-ui/IconButton'
 import Expand from 'material-ui/svg-icons/navigation/menu'
 import {loadCategories} from './categories/actions'
+import {fetchPosts, fetchPostsByCategory} from './post/actions'
 
 class ReadableAppBar extends React.Component {
 
@@ -19,13 +20,19 @@ class ReadableAppBar extends React.Component {
   handleChangeSingle (value) {
     return () => {
       const target = value === 'All Posts' ? '' : value.toLowerCase()
+      if (target) {
+        this.props.getCategoryPosts(target)
+      } else {
+        this.props.getPosts()
+      }
       this.props.history.push(`/${target}`)
+      // do not work, need to do something to reload the body and update the post-list
     }
   }
 
   iconMenuButton (categories, selected) {
     return (
-      <IconMenu
+      <IconMenu key='app-menu'
         iconButtonElement={<IconButton><Expand /></IconButton>}
         anchorOrigin={{horizontal: 'left', vertical: 'top'}}
         targetOrigin={{horizontal: 'left', vertical: 'top'}}
@@ -63,7 +70,9 @@ function mapStateToProps ({ posts }) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    getCategories: data => dispatch(loadCategories(data))
+    getCategories: data => dispatch(loadCategories(data)),
+    getPosts: data => dispatch(fetchPosts(data)),
+    getCategoryPosts: data => dispatch(fetchPostsByCategory(data))
   }
 }
 
