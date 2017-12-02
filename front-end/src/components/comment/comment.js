@@ -15,11 +15,9 @@ const style = {
 const Comment = (props) => (
   <Card>
     <CardHeader subtitle={
-      <span>({new Moment(props.comment.timestamp).format('dddd, MMMM Do YYYY, h:mm:ss a')}) Vote score: <Vote voteScore={props.comment.voteScore} /></span>
+      <span>Vote score: <Vote voteScore={props.comment.voteScore} /> {props.comment.author} commented at ({new Moment(props.comment.timestamp).format('dddd, MMMM Do YYYY, h:mm:ss a')}) </span>
     } />
-    <CardText>{<div>
-      {props.comment.author}: {props.comment.body}
-    </div>}</CardText>
+    <CardText>{<div>{props.comment.body}</div>}</CardText>
     <CardActions>
       <CommentForm comment={props.comment} post={props.post} />
       <RaisedButton label='Remove comment' style={style} onClick={() => {

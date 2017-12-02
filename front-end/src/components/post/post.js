@@ -1,10 +1,12 @@
+import Moment from 'moment'
 import React from 'react'
 import { connect } from 'react-redux'
-import {Card, CardText} from 'material-ui/Card'
+import {Card, CardText, CardHeader} from 'material-ui/Card'
 import ReadableAppBar from '../app-bar'
 import Comment from '../comment/comment'
 import Commands from './post-commands'
 import {loadPost} from './actions'
+import Vote from '../vote/vote-score'
 
 class Post extends React.Component {
 
@@ -12,6 +14,12 @@ class Post extends React.Component {
     if (!this.props.post) {
       this.props.getPost(this.props.match.params.post_id)
     }
+  }
+
+  subtitle (post) {
+    return (<div>
+      <Vote voteScore={post.voteScore} /> {post.author} posted at ({new Moment(post.timestamp).format('dddd, MMMM Do YYYY, h:mm:ss a')})}
+    </div>)
   }
 
   render () {
@@ -22,6 +30,7 @@ class Post extends React.Component {
           <div>
             <ReadableAppBar title={post.title} />
             <Card>
+              <CardHeader subtitle={this.subtitle(post)} />
               <CardText>{post.body}</CardText>
             </Card>
             <Commands post={post} />
