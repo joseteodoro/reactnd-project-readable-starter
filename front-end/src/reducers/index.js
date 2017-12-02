@@ -7,6 +7,7 @@ import {
   POST_VOTED_UP,
   POST_VOTED_DOWN,
   POSTS_FETCHED,
+  POSTS_FETCHED_BY_CATEGORY,
   POST_LOADED
 } from '../components/post/actions'
 import {
@@ -48,6 +49,7 @@ function posts (state = {items: [], comments: []}, action) {
       return {...state, items}
     }
 
+    case POSTS_FETCHED_BY_CATEGORY:
     case POSTS_FETCHED: {
       const { posts } = action
       const items = posts.filter((post) => !post.deleted)

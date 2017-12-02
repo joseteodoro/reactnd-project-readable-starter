@@ -34,6 +34,16 @@ export function addPost ({ title, body, author, category }) {
   }
 }
 
+export const POSTS_FETCHED_BY_CATEGORY = 'POSTS_FETCHED_BY_CATEGORY'
+
+export function fetchPostsByCategory (category) {
+  return {
+    type: POSTS_FETCHED_BY_CATEGORY,
+    category,
+    posts: null
+  }
+}
+
 export const POSTS_FETCHED = 'POSTS_FETCHED'
 
 export function fetchPosts () {

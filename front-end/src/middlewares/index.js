@@ -1,6 +1,7 @@
 import * as api from '../client/API'
 import {
   POSTS_FETCHED,
+  POSTS_FETCHED_BY_CATEGORY,
   POST_UPDATED,
   POST_REMOVED,
   POST_VOTED_UP,
@@ -58,6 +59,15 @@ export function posts (store) {
 
       case POSTS_FETCHED: {
         api.getPosts().then(posts => {
+          action.posts = posts
+          return next(action)
+        })
+        break
+      }
+
+      case POSTS_FETCHED_BY_CATEGORY: {
+        const { category } = action
+        api.getPostsByCategory(category).then(posts => {
           action.posts = posts
           return next(action)
         })

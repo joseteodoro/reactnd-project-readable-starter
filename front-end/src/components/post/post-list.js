@@ -9,19 +9,25 @@ import InlinePost from './inline-post'
 import InlinePostHeader from './inline-post-header'
 import ReadableAppBar from '../app-bar'
 import PostForm from './form'
-import {fetchPosts} from './actions'
+import {fetchPosts, fetchPostsByCategory} from './actions'
 
-// TODO move all post table content to inline-post
 class PostList extends React.Component {
 
-  componentWillMount () {
-    // const { params } = this.props.match
-
-    // if (params && params.category && params.category) {
-    //   this.props.getCategoryPosts(params.category)
-    // } else {
+  loadPostsToComponent () {
+    const { params } = this.props.match
+    if (params && params.category && params.category) {
+      this.props.getCategoryPosts(params.category)
+    } else {
       this.props.getPosts()
-    // }
+    }
+  }
+
+  componentWillMount () {
+    this.loadPostsToComponent()
+  }
+
+  componentWillUpdate () {
+    this.loadPostsToComponent()
   }
 
   render () {
@@ -52,7 +58,8 @@ function mapStateToProps ({ posts }) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    getPosts: data => dispatch(fetchPosts(data))
+    getPosts: data => dispatch(fetchPosts(data)),
+    getCategoryPosts: data => dispatch(fetchPostsByCategory(data))
   }
 }
 
