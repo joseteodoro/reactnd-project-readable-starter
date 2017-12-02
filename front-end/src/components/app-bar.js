@@ -5,7 +5,7 @@ import AppBar from 'material-ui/AppBar'
 import IconMenu from 'material-ui/IconMenu'
 import MenuItem from 'material-ui/MenuItem'
 import IconButton from 'material-ui/IconButton'
-import Expand from 'material-ui/svg-icons/navigation/expand-more'
+import Expand from 'material-ui/svg-icons/navigation/menu'
 import {loadCategories} from './categories/actions'
 
 class ReadableAppBar extends React.Component {

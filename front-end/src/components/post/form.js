@@ -5,9 +5,7 @@ import FlatButton from 'material-ui/FlatButton'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 import TextField from 'material-ui/TextField'
-import FloatingActionButton from 'material-ui/FloatingActionButton'
-import ContentEdit from 'material-ui/svg-icons/image/edit'
-import ContentAdd from 'material-ui/svg-icons/content/add'
+import RaisedButton from 'material-ui/RaisedButton'
 import {addPost, updatePost} from './actions'
 
 const style = {
@@ -58,9 +56,9 @@ class PostForm extends Component {
 
   actionButton (id) {
     if (id) {
-      return <ContentEdit />
+      return 'Edit Post'
     } else {
-      return <ContentAdd />
+      return 'Add Post'
     }
   }
 
@@ -79,9 +77,7 @@ class PostForm extends Component {
     const {title, body, author, category, id} = this.state
     return (
       <span>
-        <FloatingActionButton style={style} onClick={this.handleOpen} >
-          {this.actionButton(id)}
-        </FloatingActionButton>
+        <RaisedButton style={style} onClick={this.handleOpen} label={this.actionButton(id)} />
         <Dialog
           title='New Post'
           actions={actions}

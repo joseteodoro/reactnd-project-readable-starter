@@ -1,45 +1,37 @@
+import Moment from 'moment'
 import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import {Card, CardText, CardHeader, CardActions} from 'material-ui/Card'
-import FloatingActionButton from 'material-ui/FloatingActionButton'
-import ContentDelete from 'material-ui/svg-icons/action/delete'
-import VoteDown from 'material-ui/svg-icons/action/thumb-down'
-import VoteUp from 'material-ui/svg-icons/action/thumb-up'
+import RaisedButton from 'material-ui/RaisedButton'
 import Vote from '../vote/vote-score'
 import CommentForm from './form'
 import {removeComment, commentVoteDown, commentVoteUp} from './actions'
 
 const style = {
-  margin: 5
+  margin: 24
 }
 
 const Comment = (props) => (
   <Card>
     <CardHeader subtitle={
-      <span>Vote score: <Vote voteScore={props.comment.voteScore} /></span>
+      <span>({new Moment(props.comment.timestamp).format('dddd, MMMM Do YYYY, h:mm:ss a')}) Vote score: <Vote voteScore={props.comment.voteScore} /></span>
     } />
     <CardText>{<div>
       {props.comment.author}: {props.comment.body}
     </div>}</CardText>
     <CardActions>
       <CommentForm comment={props.comment} post={props.post} />
-      <FloatingActionButton mini secondary style={style} onClick={() => {
+      <RaisedButton label='Remove comment' style={style} onClick={() => {
         props.deleteComment(props.comment.id)
         props.history.push(`/post/${props.post.id}`)
-      }} >
-        <ContentDelete />
-      </FloatingActionButton>
-      <FloatingActionButton mini secondary style={style} onClick={() => {
+      }} />
+      <RaisedButton label='Like' style={style} onClick={() => {
         props.up(props.comment)
-      }} >
-        <VoteUp />
-      </FloatingActionButton>
-      <FloatingActionButton mini secondary style={style} onClick={() => {
+      }} />
+      <RaisedButton label='Dislike' style={style} onClick={() => {
         props.down(props.comment)
-      }} >
-        <VoteDown />
-      </FloatingActionButton>
+      }} />
     </CardActions>
   </Card>
 )

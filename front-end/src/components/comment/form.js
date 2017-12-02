@@ -1,15 +1,13 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import Dialog from 'material-ui/Dialog'
-import FloatingActionButton from 'material-ui/FloatingActionButton'
-import ContentAdd from 'material-ui/svg-icons/communication/chat'
-import ContentEdit from 'material-ui/svg-icons/image/edit'
 import TextField from 'material-ui/TextField'
+import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
 import {addComment, updateComment} from './actions'
 
 const style = {
-  margin: 5
+  margin: 24
 }
 
 class CommentForm extends Component {
@@ -55,13 +53,9 @@ class CommentForm extends Component {
 
   actionButton (id) {
     if (id) {
-      return (<FloatingActionButton mini secondary style={style} onClick={this.handleOpen} >
-        <ContentEdit />
-      </FloatingActionButton>)
+      return (<RaisedButton style={style} onClick={this.handleOpen} label='Edit comment' />)
     } else {
-      return (<FloatingActionButton style={style} onClick={this.handleOpen} >
-        <ContentAdd />
-      </FloatingActionButton>)
+      return (<RaisedButton style={style} label='New Comment' onClick={this.handleOpen} />)
     }
   }
 

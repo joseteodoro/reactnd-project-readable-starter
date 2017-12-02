@@ -6,10 +6,8 @@ import {
 
 const InlinePostHeader = (props) => (
   <TableRow>
-    <TableHeaderColumn style={{textAlign: 'center'}}>Category</TableHeaderColumn>
     <TableHeaderColumn style={{textAlign: 'center'}}>Votes</TableHeaderColumn>
-    <TableHeaderColumn style={{width: '40%'}}>Title</TableHeaderColumn>
-    <TableHeaderColumn style={{width: '20%', textAlign: 'center'}}>Author</TableHeaderColumn>
+    <TableHeaderColumn style={{width: '60%'}}>Post</TableHeaderColumn>
     <TableHeaderColumn style={{textAlign: 'center'}}>Comments</TableHeaderColumn>
   </TableRow>
 )
