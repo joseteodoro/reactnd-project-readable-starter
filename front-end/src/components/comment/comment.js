@@ -16,7 +16,7 @@ const style = {
 const Comment = (props) => (
   <Card>
     <CardHeader subtitle={
-      <span>Vote score: <Vote voteScore={props.comment.voteScore} /> {props.comment.author} commented at ({new Moment(props.comment.timestamp).format('DD/MM/YYYY, h:mm:ss a')}) </span>
+      <span>Vote score: <Vote target={props.comment} voteUp={commentVoteUp} voteDown={commentVoteDown} /> {props.comment.author} commented at ({new Moment(props.comment.timestamp).format('DD/MM/YYYY, h:mm:ss a')}) </span>
     } />
     <CardText>{<div>{props.comment.body}</div>}</CardText>
     <CardActions>
@@ -37,9 +37,7 @@ const Comment = (props) => (
 
 function mapDispatchToProps (dispatch) {
   return {
-    deleteComment: data => dispatch(removeComment(data)),
-    up: data => dispatch(commentVoteUp(data)),
-    down: data => dispatch(commentVoteDown(data))
+    deleteComment: data => dispatch(removeComment(data))
   }
 }
 

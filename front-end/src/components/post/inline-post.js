@@ -7,10 +7,11 @@ import {
   TableRowColumn
 } from 'material-ui/Table'
 import Vote from '../vote/vote-score'
+import {postVoteDown, postVoteUp} from './actions'
 
 const InlinePost = ({post}) => (
   <TableRow>
-    <TableRowColumn key={`voteScore-${post.id}`} style={{textAlign: 'center'}}><Vote voteScore={post.voteScore} /></TableRowColumn>
+    <TableRowColumn key={`voteScore-${post.id}`} style={{textAlign: 'center'}}><Vote target={post} voteUp={postVoteUp} voteDown={postVoteDown} /></TableRowColumn>
     <TableRowColumn key={`title-${post.id}`} style={{width: '60%'}}>
       <h3>[{post.category}] <Link to={`/post/${post.id}`}>{post.title}</Link></h3>
       {post.author} ({new Moment(post.timestamp).format('DD/MM/YYYY h:mm:ss a')})

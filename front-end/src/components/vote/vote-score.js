@@ -1,8 +1,37 @@
 import React from 'react'
-import Thumb from './thumb'
+import { connect } from 'react-redux'
+import IconButton from 'material-ui/IconButton'
+import FontIcon from 'material-ui/FontIcon'
+
+const iconStyles = {
+  margin: -1,
+  width: 36,
+  height: 36
+}
 
 const Vote = (props) => (
-    <span>{props.voteScore} <Thumb voteScore={props.voteScore} /></span>
+  <span>
+    <span>
+      <IconButton tooltip='Like' onClick={() => { props.up(props.target) }} >
+        <FontIcon key={props.key} className='material-icons' style={iconStyles} >thumb_up</FontIcon>
+      </IconButton>
+    </span>
+    <span>
+      {props.target.voteScore}
+    </span>
+    <span>
+      <IconButton tooltip='Dislike' onClick={() => { props.down(props.target) }} >
+        <FontIcon key={props.key} className='material-icons' style={iconStyles} >thumb_down</FontIcon>
+      </IconButton>
+    </span>
+  </span>
 )
 
-export default Vote
+function mapDispatchToProps (dispatch, props) {
+  return {
+    up: data => dispatch(props.voteUp(data)),
+    down: data => dispatch(props.voteDown(data))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Vote)

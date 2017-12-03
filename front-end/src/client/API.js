@@ -94,7 +94,6 @@ export function addComment (comment) {
 }
 
 export function voteComment (commentId, vote) {
-  console.log(commentId, vote)
   return fetch(`${apiServerAddress}/comments/${commentId}`, {
     method: 'POST',
     headers: {
