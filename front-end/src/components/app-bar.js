@@ -8,6 +8,7 @@ import IconButton from 'material-ui/IconButton'
 import Expand from 'material-ui/svg-icons/navigation/menu'
 import {loadCategories} from './categories/actions'
 import {fetchPosts, fetchPostsByCategory} from './post/actions'
+import PostSorting from './post/post-sort'
 
 class ReadableAppBar extends React.Component {
 
@@ -55,7 +56,8 @@ class ReadableAppBar extends React.Component {
   render () {
     const { categories } = this.props
     return (
-      <AppBar title={this.props.title} iconElementLeft={this.iconMenuButton(categories, this.props.match.params.category)} />
+      <AppBar title={this.props.title} iconElementLeft={this.iconMenuButton(categories, this.props.match.params.category)}
+      iconElementRight={<PostSorting />} />
     )
   }
 }

@@ -9,7 +9,6 @@ import InlinePost from './inline-post'
 import InlinePostHeader from './inline-post-header'
 import ReadableAppBar from '../app-bar'
 import PostForm from './form'
-import PostSorting from './post-sort'
 import {fetchPosts, fetchPostsByCategory} from './actions'
 
 class PostList extends React.Component {
@@ -32,7 +31,6 @@ class PostList extends React.Component {
     return (
       <div>
         <ReadableAppBar key='title-bar' title={`${this.props.match.params.category || 'All'} posts`} />
-        <PostSorting />
         <PostForm />
         <Table>
           <TableHeader>
