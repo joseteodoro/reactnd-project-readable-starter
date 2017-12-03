@@ -27,7 +27,6 @@ class ReadableAppBar extends React.Component {
         this.props.getPosts()
       }
       this.props.history.push(`/${target}`)
-      // do not work, need to do something to reload the body and update the post-list
     }
   }
 
