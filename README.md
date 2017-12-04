@@ -44,12 +44,21 @@ Users can remove comment going into the post's page and clicking on the `REMOVE 
 ### Up vote posts
 
 Users can up vote / down vote the posts using the thumb up / thumb down button, either in the home or inside the post's page.
+![up vote by button](https://raw.githubusercontent.com/joseteodoro/reactnd-project-readable-starter/master/upvote-a.gif)
 
+![up vote by post page](https://raw.githubusercontent.com/joseteodoro/reactnd-project-readable-starter/master/upvote-b.gif)
 
 ### Up vote comments
 
+Users can up vote / down vote the comments using the thumb up / thumb down button by side the comment on the post's page.
+
 ### Filter posts
-filter - gif
+
+Users can filter the posts by category using the menu on the left top corner and selecting a category or `All posts`.
+
+![filtering](https://raw.githubusercontent.com/joseteodoro/reactnd-project-readable-starter/master/filter.gif)
 
 ### Sort posts
-sort gif
+
+Users can sort the posts using the menu on right top corner and selecting the criteria to sort the posts.
+![Sorting](https://raw.githubusercontent.com/joseteodoro/reactnd-project-readable-starter/master/sort.gif)
