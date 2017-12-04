@@ -43,10 +43,12 @@ Users can remove comment going into the post's page and clicking on the `REMOVE 
 
 ### Up vote posts
 
-Users can up vote / down vote the posts using the thumb up / thumb down button, either in the home or inside the post's page.
+Users can up vote / down vote the posts using the thumb up / thumb down button, either in the home 
 ![up vote by button](https://raw.githubusercontent.com/joseteodoro/reactnd-project-readable-starter/master/upvote-a.gif)
 
-![up vote by post page](https://raw.githubusercontent.com/joseteodoro/reactnd-project-readable-starter/master/upvote-b.gif)
+or inside the post's page.
+
+![upvote by post page](https://raw.githubusercontent.com/joseteodoro/reactnd-project-readable-starter/master/upvote-b.gif)
 
 ### Up vote comments
 
