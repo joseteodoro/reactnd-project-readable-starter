@@ -20,12 +20,6 @@ const Commands = (props) => (
       props.removePost(props.post.id)
       props.history.push(`/`)
     }} />
-    <RaisedButton style={style} label='Like' onClick={() => {
-      props.up(props.post)
-    }} />
-    <RaisedButton style={style} label='Dislike' onClick={() => {
-      props.down(props.post)
-    }} />
   </div>
 )
 

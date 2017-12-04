@@ -25,12 +25,6 @@ const Comment = (props) => (
         props.deleteComment(props.comment.id)
         props.history.push(`/post/${props.post.id}`)
       }} />
-      <RaisedButton label='Like' style={style} onClick={() => {
-        props.up(props.comment)
-      }} />
-      <RaisedButton label='Dislike' style={style} onClick={() => {
-        props.down(props.comment)
-      }} />
     </CardActions>
   </Card>
 )
