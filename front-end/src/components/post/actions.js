@@ -15,7 +15,8 @@ import {
 export function sortPosts (sortedBy) {
   return {
     type: SORT_POST,
-    sortedBy
+    sortedBy,
+    post: null
   }
 }
 
@@ -23,7 +24,7 @@ export function loadPost (id) {
   return {
     type: POST_LOADED,
     id,
-    post: null,
+    post: {},
     comments: []
   }
 }
@@ -53,7 +54,8 @@ export function fetchPostsByCategory (category) {
     type: POSTS_FETCHED_BY_CATEGORY,
     category,
     sortedBy: {field: 'voteScore', order: 'desc'},
-    posts: null
+    posts: null,
+    post: null
   }
 }
 
@@ -61,7 +63,8 @@ export function fetchPosts () {
   return {
     type: POSTS_FETCHED,
     sortedBy: {field: 'voteScore', order: 'desc'},
-    posts: null
+    posts: null,
+    post: null
   }
 }
 

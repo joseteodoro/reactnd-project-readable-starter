@@ -47,7 +47,7 @@ function posts (state = {items: [], comments: []}, action) {
     case POST_REMOVED: {
       const { id } = action
       const items = state.items.filter((item) => (item.id !== id))
-      return {...state, items}
+      return {...state, items, post: {deleted: true, id}}
     }
 
     case POSTS_FETCHED_BY_CATEGORY:

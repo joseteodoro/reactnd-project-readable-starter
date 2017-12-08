@@ -3,7 +3,11 @@ import {Card, CardText} from 'material-ui/Card'
 
 const NotFound = (props) => (
   <Card>
-    <CardText>Page not found.</CardText>
+    {props.customMessage ? (
+      <CardText>{props.customMessage}</CardText>
+    ) : (
+      <CardText>Page not found.</CardText>
+    ) }
   </Card>
 )
 

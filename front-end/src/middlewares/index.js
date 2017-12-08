@@ -77,14 +77,17 @@ export function posts (store) {
       case POST_LOADED: {
         const { id } = action
         api.getPostById(id)
-          .then(post => { action.post = post })
-          .then(() => api.getCommentsByPost(id))
-          .then((comments) => {
-            if (action.post.deleted) {
+          .then((post) => {
+            if (!post || !Object.keys(post).length) {
+              action.post = {deleted: true, id}
               action.comments = []
             } else {
-              action.comments = comments
+              action.post = post
             }
+          })
+          .then(() => api.getCommentsByPost(id))
+          .then((comments) => {
+            action.comments = comments
             return next(action)
           })
         break
