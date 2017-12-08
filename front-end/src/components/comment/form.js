@@ -76,7 +76,7 @@ class CommentForm extends Component {
       <span>
         {this.actionButton(id)}
         <Dialog
-          title='New Comment'
+          title='Comment data'
           actions={actions}
           modal={false}
           open={this.state.open}

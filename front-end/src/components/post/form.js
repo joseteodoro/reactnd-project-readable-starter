@@ -56,7 +56,7 @@ class PostForm extends Component {
 
   actionButton (id) {
     if (id) {
-      return 'Edit Post'
+      return 'Edit'
     } else {
       return 'Add Post'
     }
@@ -77,9 +77,9 @@ class PostForm extends Component {
     const {title, body, author, category, id} = this.state
     return (
       <span>
-        <RaisedButton style={style} onClick={this.handleOpen} label={this.actionButton(id)} />
+        <RaisedButton style={this.props.style || style} onClick={this.handleOpen} label={this.actionButton(id)} />
         <Dialog
-          title='New Post'
+          title={this.actionButton(id)}
           actions={actions}
           modal={false}
           open={this.state.open}

@@ -1,7 +1,16 @@
 import randomstring from 'randomstring'
 import moment from 'moment'
-
-export const SORT_POST = 'SORT_POST'
+import {
+  POST_ADDED,
+  POST_UPDATED,
+  POST_REMOVED,
+  POST_VOTED_UP,
+  POST_VOTED_DOWN,
+  POSTS_FETCHED,
+  POSTS_FETCHED_BY_CATEGORY,
+  POST_LOADED,
+  SORT_POST
+} from './action-types'
 
 export function sortPosts (sortedBy) {
   return {
@@ -9,8 +18,6 @@ export function sortPosts (sortedBy) {
     sortedBy
   }
 }
-
-export const POST_LOADED = 'POST_LOADED'
 
 export function loadPost (id) {
   return {
@@ -20,8 +27,6 @@ export function loadPost (id) {
     comments: []
   }
 }
-
-export const POST_ADDED = 'POST_ADDED'
 
 export function addPost ({ title, body, author, category }) {
   const id = randomstring.generate()
@@ -43,8 +48,6 @@ export function addPost ({ title, body, author, category }) {
   }
 }
 
-export const POSTS_FETCHED_BY_CATEGORY = 'POSTS_FETCHED_BY_CATEGORY'
-
 export function fetchPostsByCategory (category) {
   return {
     type: POSTS_FETCHED_BY_CATEGORY,
@@ -54,8 +57,6 @@ export function fetchPostsByCategory (category) {
   }
 }
 
-export const POSTS_FETCHED = 'POSTS_FETCHED'
-
 export function fetchPosts () {
   return {
     type: POSTS_FETCHED,
@@ -64,16 +65,12 @@ export function fetchPosts () {
   }
 }
 
-export const POST_REMOVED = 'POST_REMOVED'
-
 export function removePost (id) {
   return {
     type: POST_REMOVED,
     id
   }
 }
-
-export const POST_UPDATED = 'POST_UPDATED'
 
 export function updatePost ({ id, title, body }) {
   const post = {
@@ -87,8 +84,6 @@ export function updatePost ({ id, title, body }) {
   }
 }
 
-export const POST_VOTED_UP = 'POST_VOTED_UP'
-
 export function postVoteUp (post) {
   const voteScore = post.voteScore + 1
   const updated = {...post, voteScore}
@@ -98,8 +93,6 @@ export function postVoteUp (post) {
     post: updated
   }
 }
-
-export const POST_VOTED_DOWN = 'POST_VOTED_DOWN'
 
 export function postVoteDown (post) {
   const voteScore = post.voteScore - 1

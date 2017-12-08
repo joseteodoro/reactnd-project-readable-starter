@@ -1,5 +1,4 @@
-
-export const LOAD_CATEGORIES = 'LOAD_CATEGORIES'
+import { LOAD_CATEGORIES } from './action-types'
 
 export function loadCategories () {
   return {

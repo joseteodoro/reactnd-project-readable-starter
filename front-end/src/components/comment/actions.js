@@ -1,11 +1,12 @@
 import randomstring from 'randomstring'
 import moment from 'moment'
-
-export const COMMENT_UPDATED = 'COMMENT_UPDATED'
-export const COMMENT_REMOVED = 'COMMENT_REMOVED'
-export const COMMENT_VOTED_UP = 'COMMENT_VOTED_UP'
-export const COMMENT_VOTED_DOWN = 'COMMENT_VOTED_DOWN'
-export const COMMENT_ADDED = 'COMMENT_ADDED'
+import {
+  COMMENT_UPDATED,
+  COMMENT_REMOVED,
+  COMMENT_VOTED_UP,
+  COMMENT_VOTED_DOWN,
+  COMMENT_ADDED
+} from './action-types'
 
 export function addComment ({parentId, body, author}) {
   const id = randomstring.generate()

@@ -46,7 +46,7 @@ class ReadableAppBar extends React.Component {
     )
   }
 
-  componentWillMount () {
+  componentDidMount () {
     if (!this.props.categories || !this.props.categories.length) {
       this.props.getCategories()
     }
@@ -56,7 +56,7 @@ class ReadableAppBar extends React.Component {
     const { categories } = this.props
     return (
       <AppBar title={this.props.title} iconElementLeft={this.iconMenuButton(categories, this.props.match.params.category)}
-      iconElementRight={<PostSorting />} />
+        iconElementRight={<PostSorting />} />
     )
   }
 }

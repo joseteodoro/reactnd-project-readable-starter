@@ -10,17 +10,17 @@ import {
   POSTS_FETCHED_BY_CATEGORY,
   POST_LOADED,
   SORT_POST
-} from '../components/post/actions'
+} from '../components/post/action-types'
 import {
   COMMENT_UPDATED,
   COMMENT_REMOVED,
   COMMENT_VOTED_UP,
   COMMENT_VOTED_DOWN,
   COMMENT_ADDED
-} from '../components/comment/actions'
+} from '../components/comment/action-types'
 import {
   LOAD_CATEGORIES
-} from '../components/categories/actions'
+} from '../components/categories/action-types'
 
 function posts (state = {items: [], comments: []}, action) {
   switch (action.type) {

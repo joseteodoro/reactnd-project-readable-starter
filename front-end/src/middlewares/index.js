@@ -8,17 +8,17 @@ import {
   POST_VOTED_DOWN,
   POST_ADDED,
   POST_LOADED
-} from '../components/post/actions'
+} from '../components/post/action-types'
 import {
   COMMENT_UPDATED,
   COMMENT_REMOVED,
   COMMENT_VOTED_UP,
   COMMENT_VOTED_DOWN,
   COMMENT_ADDED
-} from '../components/comment/actions'
+} from '../components/comment/action-types'
 import {
   LOAD_CATEGORIES
-} from '../components/categories/actions'
+} from '../components/categories/action-types'
 
 export function posts (store) {
   return (next) => (action) => {
@@ -80,7 +80,11 @@ export function posts (store) {
           .then(post => { action.post = post })
           .then(() => api.getCommentsByPost(id))
           .then((comments) => {
-            action.comments = comments
+            if (action.post.deleted) {
+              action.comments = []
+            } else {
+              action.comments = comments
+            }
             return next(action)
           })
         break
