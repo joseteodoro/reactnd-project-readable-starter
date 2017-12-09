@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import IconButton from 'material-ui/IconButton'
 import FontIcon from 'material-ui/FontIcon'
+import PropTypes from 'prop-types'
 
 const iconStyles = {
   margin: -1,
@@ -32,6 +33,11 @@ function mapDispatchToProps (dispatch, props) {
     up: data => dispatch(props.voteUp(data)),
     down: data => dispatch(props.voteDown(data))
   }
+}
+
+Vote.propTypes = {
+  voteUp: PropTypes.func.isRequired,
+  voteDown: PropTypes.func.isRequired
 }
 
 export default connect(null, mapDispatchToProps)(Vote)

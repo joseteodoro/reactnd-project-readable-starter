@@ -21,12 +21,17 @@ class PostForm extends Component {
       title: '',
       body: '',
       author: '',
-      category: null
+      category: null,
+      bodyError: null,
+      authorError: null,
+      categoryError: null,
+      titleError: null
     }
     this.state = props.post || this.defaultState
     this.state.open = false
     this.handleOpen = this.handleOpen.bind(this)
-    this.handleClose = this.handleClose.bind(this)
+    this.handleCloseCanceling = this.handleCloseCanceling.bind(this)
+    this.handleCloseSaving = this.handleCloseSaving.bind(this)
     this.changeCategory = this.changeCategory.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
@@ -35,12 +40,38 @@ class PostForm extends Component {
     this.setState({open: true})
   };
 
-  handleClose () {
+  handleCloseSaving () {
+    let accepted = true
+    let errors = {}
+    if (!this.state.title) {
+      errors.titleError = 'Title is required!'
+      accepted = false
+    }
+    if (!this.state.category) {
+      errors.categoryError = 'Category is required!'
+      accepted = false
+    }
+    if (!this.state.author) {
+      errors.authorError = 'Author name is required!'
+      accepted = false
+    }
+    if (!this.state.body) {
+      errors.bodyError = 'Body is required!'
+      accepted = false
+    }
+    if (!accepted) {
+      this.setState({...this.state, ...errors})
+      return
+    }
     if (this.state.id) {
       this.props.editPost(this.state)
     } else {
       this.props.newPost(this.state)
     }
+    this.setState(this.defaultState)
+  }
+
+  handleCloseCanceling () {
     this.setState(this.defaultState)
   }
 
@@ -67,14 +98,14 @@ class PostForm extends Component {
       <FlatButton
         label='Ok'
         primary
-        onClick={this.handleClose}
+        onClick={this.handleCloseSaving}
       />,
       <FlatButton
         label='Cancel'
-        onClick={this.handleClose}
+        onClick={this.handleCloseCanceling}
       />
     ]
-    const {title, body, author, category, id} = this.state
+    const {title, body, author, category, id, bodyError, titleError, authorError, categoryError} = this.state
     return (
       <span>
         <RaisedButton style={this.props.style || style} onClick={this.handleOpen} label={this.actionButton(id)} />
@@ -83,16 +114,18 @@ class PostForm extends Component {
           actions={actions}
           modal={false}
           open={this.state.open}
-          onRequestClose={this.handleClose}
+          onRequestClose={this.handleCloseCanceling}
         >
-          <TextField id='title' hintText='Post title' onChange={this.handleChange} floatingLabelText='Post title' value={title} /><br />
-          <SelectField id='category' hintText='Post category' floatingLabelText='Post category' value={category} onChange={this.changeCategory} disabled={!!id} >
-            <MenuItem key='react' value='react' primaryText='React' />
-            <MenuItem key='redux' value='redux' primaryText='Redux' />
-            <MenuItem key='udacity' value='udacity' primaryText='Udacity' />
-          </SelectField><br />
-          <TextField id='author' hintText='Your name' floatingLabelText='Post author' value={author} onChange={this.handleChange} disabled={!!id} /><br />
-          <TextField id='body' hintText='Post Body' floatingLabelText='Post body' multiLine rows={5} value={body} onChange={this.handleChange} /><br />
+          <div>
+            <TextField id='title' hintText='Post title' onChange={this.handleChange} floatingLabelText='Post title' value={title} errorText={titleError} /><br />
+            <SelectField id='category' hintText='Post category' floatingLabelText='Post category' value={category} onChange={this.changeCategory} disabled={!!id} errorText={categoryError} >
+              <MenuItem key='react' value='react' primaryText='React' />
+              <MenuItem key='redux' value='redux' primaryText='Redux' />
+              <MenuItem key='udacity' value='udacity' primaryText='Udacity' />
+            </SelectField><br />
+            <TextField id='author' hintText='Your name' floatingLabelText='Post author' value={author} onChange={this.handleChange} disabled={!!id} errorText={authorError} /><br />
+            <TextField id='body' hintText='Post Body' floatingLabelText='Post body' multiLine rows={5} value={body} onChange={this.handleChange} errorText={bodyError} /><br />
+          </div>
         </Dialog>
       </span>
     )

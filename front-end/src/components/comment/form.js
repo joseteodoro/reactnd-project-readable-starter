@@ -4,6 +4,7 @@ import Dialog from 'material-ui/Dialog'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
+import PropTypes from 'prop-types'
 import {addComment, updateComment} from './actions'
 
 const style = {
@@ -18,12 +19,15 @@ class CommentForm extends Component {
       open: false,
       parentId: props.post.id,
       body: '',
-      author: ''
+      author: '',
+      bodyError: null,
+      authorError: null
     }
     this.state = props.comment || this.defaultState
     this.state.open = false
     this.handleOpen = this.handleOpen.bind(this)
-    this.handleClose = this.handleClose.bind(this)
+    this.handleCloseSaving = this.handleCloseSaving.bind(this)
+    this.handleCloseCanceling = this.handleCloseCanceling.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
 
@@ -31,13 +35,30 @@ class CommentForm extends Component {
     this.setState({open: true})
   };
 
-  handleClose () {
-    console.log(require('util').inspect(this.state, { depth: null }))
+  handleCloseSaving () {
+    let accepted = true
+    let errors = {}
+    if (!this.state.author) {
+      errors.authorError = 'Author name is required!'
+      accepted = false
+    }
+    if (!this.state.body) {
+      errors.bodyError = 'Body is required!'
+      accepted = false
+    }
+    if (!accepted) {
+      this.setState({...this.state, ...errors})
+      return
+    }
     if (this.state.id) {
       this.props.update(this.state)
     } else {
       this.props.add(this.state)
     }
+    this.setState(this.defaultState)
+  }
+
+  handleCloseCanceling () {
     this.setState(this.defaultState)
   }
 
@@ -64,14 +85,14 @@ class CommentForm extends Component {
       <FlatButton
         label='Ok'
         primary
-        onClick={this.handleClose}
+        onClick={this.handleCloseSaving}
       />,
       <FlatButton
         label='Cancel'
-        onClick={this.handleClose}
+        onClick={this.handleCloseCanceling}
       />
     ]
-    const {body, author, id} = this.state
+    const {body, author, id, bodyError, authorError} = this.state
     return (
       <span>
         {this.actionButton(id)}
@@ -80,10 +101,10 @@ class CommentForm extends Component {
           actions={actions}
           modal={false}
           open={this.state.open}
-          onRequestClose={this.handleClose}
+          onRequestClose={this.handleCloseCanceling}
         >
-          <TextField id='author' hintText='Your name' floatingLabelText='Comment author' value={author} onChange={this.handleChange} disabled={!!id} /><br />
-          <TextField id='body' hintText='Comment body' floatingLabelText='Comment body' multiLine rows={5} value={body} onChange={this.handleChange} /><br />
+          <TextField id='author' hintText='Your name' floatingLabelText='Comment author' value={author} onChange={this.handleChange} disabled={!!id} errorText={authorError} /><br />
+          <TextField id='body' hintText='Comment body' floatingLabelText='Comment body' multiLine rows={5} value={body} onChange={this.handleChange} errorText={bodyError} /><br />
         </Dialog>
       </span>
     )
@@ -95,6 +116,10 @@ function mapDispatchToProps (dispatch) {
     add: data => dispatch(addComment(data)),
     update: data => dispatch(updateComment(data))
   }
+}
+
+CommentForm.propTypes = {
+  post: PropTypes.object.isRequired
 }
 
 export default connect(null, mapDispatchToProps)(CommentForm)

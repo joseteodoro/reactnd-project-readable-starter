@@ -11,7 +11,7 @@ class Post extends React.Component {
 
   subtitle (post) {
     return (<div>
-      <Vote target={post} voteUp={postVoteUp} voteDown={postVoteDown} /> {post.author} posted at ({new Moment(post.timestamp).format('dddd, MMMM Do YYYY, h:mm:ss a')})}
+      <Vote target={post} voteUp={postVoteUp} voteDown={postVoteDown} /> {post.author} posted at ({new Moment(post.timestamp).format('dddd, MMMM Do YYYY, h:mm:ss a')})} and holding {post.commentCount} comments until now.
     </div>)
   }
 

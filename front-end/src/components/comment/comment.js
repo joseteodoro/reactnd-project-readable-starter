@@ -36,7 +36,8 @@ function mapDispatchToProps (dispatch) {
 }
 
 Comment.propTypes = {
-  comment: PropTypes.object.isRequired
+  comment: PropTypes.object.isRequired,
+  post: PropTypes.object.isRequired
 }
 
 export default connect(null, mapDispatchToProps)(withRouter(Comment))
