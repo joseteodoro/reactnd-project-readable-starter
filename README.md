@@ -10,9 +10,10 @@ This repository includes a backend API Server and the frontend application.
 * Install and start the API server
     - `cd api-server`
     - `npm install`
-    - `node server`
+    - `npm start`
 * In another terminal window, start the front-end application
     - `cd frontend`
+    - `npm install`
     - `npm start`
 
 ## Front-end usage:
@@ -43,7 +44,7 @@ Users can remove comment going into the post's page and clicking on the `REMOVE 
 
 ### Up vote posts
 
-Users can up vote / down vote the posts using the thumb up / thumb down button, either in the home 
+Users can up vote / down vote the posts using the thumb up / thumb down button, either in the home
 ![up vote by button](https://raw.githubusercontent.com/joseteodoro/reactnd-project-readable-starter/master/upvote-a.gif)
 
 or inside the post's page.

@@ -1,5 +1,10 @@
 import React from 'react'
-import {Card, CardText} from 'material-ui/Card'
+import {Card, CardText, CardActions} from 'material-ui/Card'
+import RaisedButton from 'material-ui/RaisedButton'
+
+const style = {
+  margin: 24
+}
 
 const NotFound = (props) => (
   <Card>
@@ -8,6 +13,9 @@ const NotFound = (props) => (
     ) : (
       <CardText>Page not found.</CardText>
     ) }
+    <CardActions>
+      <RaisedButton style={style} label='Home' href='/' />
+    </CardActions>
   </Card>
 )
 
