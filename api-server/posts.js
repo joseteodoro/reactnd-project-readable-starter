@@ -65,6 +65,7 @@ function getAll (token) {
 }
 
 function add (token, post) {
+  console.log('adding a new post', require('util').inspect(post, { depth: null }))
   return new Promise((res) => {
     let posts = getData(token)
 

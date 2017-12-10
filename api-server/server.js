@@ -15,13 +15,12 @@ app.use(cors())
 
 
 app.get('/', (req, res) => {
-  const help = `
-  <pre>
+  const help = `'<pre>
     Welcome to the Udacity Readable API!
 
     Use an Authorization header to work with your own data:
 
-    fetch(url, { headers: { 'Authorization': 'whatever-you-want' }})
+    fetch(url, { headers: { \'Authorization\': \'whatever-you-want\' }})
 
     The following endpoints are available:
 
@@ -69,8 +68,8 @@ app.get('/', (req, res) => {
 
     DELETE /posts/:id
       USAGE:
-        Sets the deleted flag for a post to 'true'.
-        Sets the parentDeleted flag for all child comments to 'true'.
+        Sets the deleted flag for a post to \'true\'.
+        Sets the parentDeleted flag for all child comments to \'true\'.
 
     GET /posts/:id/comments
       USAGE:
@@ -105,9 +104,8 @@ app.get('/', (req, res) => {
 
     DELETE /comments/:id
       USAGE:
-        Sets a comment's deleted flag to 'true'
- </pre>
-  `
+        Sets a comment\'s deleted flag to \'true\'
+ </pre>'`
 
   res.send(help)
 })
@@ -181,7 +179,10 @@ app.post('/posts', bodyParser.json(), (req, res) => {
 app.get('/posts/:id', (req, res) => {
     posts.get(req.token, req.params.id)
       .then(
-          (data) => res.send(data),
+          (data) => {
+            console.log(data)
+            res.send(data)
+          },
           (error) => {
               console.error(error)
               res.status(500).send({
