@@ -22,7 +22,7 @@ const Comment = (props) => (
     <CardActions>
       <CommentForm comment={props.comment} post={props.post} />
       <RaisedButton label='Remove comment' style={style} onClick={() => {
-        props.deleteComment(props.comment.id)
+        props.deleteComment(props.comment.id, props.post.id)
         props.history.push(`/post/${props.post.id}`)
       }} />
     </CardActions>

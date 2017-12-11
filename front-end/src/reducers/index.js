@@ -77,9 +77,17 @@ function posts (state = {items: [], comments: []}, action) {
     }
 
     case COMMENT_ADDED: {
-      const { comment } = action
+      const { comment, parentId } = action
       const comments = state.comments.concat(comment)
-      return {...state, comments}
+      const post = state.post
+      post.commentCount = post.commentCount + 1
+      const items = state.items.map((item) => {
+        if (item.id === parentId) {
+          return post
+        }
+        return item
+      })
+      return {...state, items, comments, post}
     }
 
     case COMMENT_UPDATED:
@@ -93,9 +101,17 @@ function posts (state = {items: [], comments: []}, action) {
     }
 
     case COMMENT_REMOVED: {
-      const { id } = action
+      const { id, parentId } = action
       const comments = state.comments.filter((item) => (item.id !== id))
-      return {...state, comments}
+      const post = state.post
+      post.commentCount = post.commentCount - 1
+      const items = state.items.map((item) => {
+        if (item.id === parentId) {
+          return post
+        }
+        return item
+      })
+      return {...state, items, comments, post}
     }
 
     default :

@@ -1,3 +1,5 @@
+import randomstring from 'randomstring'
+import moment from 'moment'
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import Dialog from 'material-ui/Dialog'
@@ -51,15 +53,22 @@ class CommentForm extends Component {
       return
     }
     if (this.state.id) {
-      this.props.update(this.state)
+      const timestamp = moment().valueOf()
+      this.props.update({...this.state, timestamp})
     } else {
-      this.props.add(this.state)
+      const id = randomstring.generate()
+      const timestamp = moment().valueOf()
+      this.props.add({...this.state, id, timestamp})
     }
     this.setState(this.defaultState)
   }
 
   handleCloseCanceling () {
-    this.setState(this.defaultState)
+    if (this.state.id) {
+      this.setState({...this.state, open: false})
+    } else {
+      this.setState(this.defaultState)
+    }
   }
 
   changeCategory (event, index, value) {

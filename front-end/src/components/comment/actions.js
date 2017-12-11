@@ -1,5 +1,3 @@
-import randomstring from 'randomstring'
-import moment from 'moment'
 import {
   COMMENT_UPDATED,
   COMMENT_REMOVED,
@@ -8,9 +6,7 @@ import {
   COMMENT_ADDED
 } from './action-types'
 
-export function addComment ({parentId, body, author}) {
-  const id = randomstring.generate()
-  const timestamp = moment().valueOf()
+export function addComment ({ parentId, body, author, id, timestamp }) {
   return {
     type: COMMENT_ADDED,
     comment: {
@@ -26,8 +22,7 @@ export function addComment ({parentId, body, author}) {
   }
 }
 
-export function updateComment ({ id, body }) {
-  const timestamp = moment().valueOf()
+export function updateComment ({ id, body, timestamp }) {
   return {
     type: COMMENT_UPDATED,
     comment: {
@@ -38,10 +33,11 @@ export function updateComment ({ id, body }) {
   }
 }
 
-export function removeComment (id) {
+export function removeComment (id, parentId) {
   return {
     type: COMMENT_REMOVED,
-    id
+    id,
+    parentId
   }
 }
 
